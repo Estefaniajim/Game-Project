@@ -10,6 +10,10 @@ public class ControlesJugador : MonoBehaviour
     private Animator anim;
     private Collider2D coll;
 
+    public bool isinground;
+
+    
+
     
 
     //FSM
@@ -30,13 +34,14 @@ public class ControlesJugador : MonoBehaviour
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
         scoreText.text = score.ToString();
-
+        isinground = false;
     }
 
     private void Update()
     {
         if(state != State.hurt)
-        {
+        {   
+            
             Movement();
         }
         AnimationState();
@@ -47,10 +52,17 @@ public class ControlesJugador : MonoBehaviour
     {
         if(collision.tag == "coins")
         {
+            if(score <0){
+                score = 0;
+            }
+            else{
             Destroy(collision.gameObject);
             score += 1;
             scoreText.text = score.ToString();
+            }
+            
         }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -88,8 +100,18 @@ public class ControlesJugador : MonoBehaviour
         }
     }
 
-    private void Movement()
+    void OnTriggerStay2D(Collider2D collision){
+
+        if(collision.gameObject.tag == "ground"){
+            
+            isinground = true;
+            Debug.Log("Tocando suelo");
+        }
+    }
+
+  private void Movement()
     {
+        
         float hDirection = Input.GetAxis("Horizontal");
 
         //moving left
@@ -106,16 +128,20 @@ public class ControlesJugador : MonoBehaviour
             transform.localScale = new Vector3(0.0771515742f,0.0717689022f,0.0717689022f);
         }
         //jumping
-        if(Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))
-        {
+        
+    if(Input.GetButtonDown("Jump") && isinground)
+        {       
+            
             Jump();
+            isinground = false;
         }
     }
-
     private void Jump()
     {
+        
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         state = State.jumping;
+        
     }
 
     private void AnimationState()

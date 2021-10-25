@@ -35,7 +35,7 @@ public class enemy : MonoBehaviour
 				MoveRight = true;
         }
 	}
-
+	
 	void OnTriggerEnter2D(Collider2D trig)
 	{
 		if (trig.gameObject.CompareTag("turn")){
