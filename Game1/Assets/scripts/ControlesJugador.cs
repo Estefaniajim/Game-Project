@@ -62,7 +62,29 @@ public class ControlesJugador : MonoBehaviour
             }
             
         }
+
+         
         
+    }
+
+
+
+    private void OnTriggerExit2D(Collider2D collision){
+         if(collision.gameObject.tag == "ground"){
+            isinground = false;
+            Debug.Log(" no Tocando suelo");
+        }
+
+    }
+
+
+
+    private void OnTriggerStay2D(Collider2D collision){
+         if(collision.gameObject.tag == "ground"){
+            isinground = true;
+            Debug.Log("Tocando suelo");
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -100,14 +122,7 @@ public class ControlesJugador : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision){
 
-        if(collision.gameObject.tag == "ground"){
-            
-            isinground = true;
-            Debug.Log("Tocando suelo");
-        }
-    }
 
   private void Movement()
     {

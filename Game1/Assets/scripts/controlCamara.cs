@@ -19,9 +19,10 @@ public class controlCamara : MonoBehaviour
             rb.velocity = new Vector2(5, rb.velocity.y);
             transform.localScale = new Vector3(0.0771515742f,0.0717689022f,0.0717689022f);
         }
-        if(Input.GetKeyDown(KeyCode.Space) && controlesJugador)
+        if(Input.GetKeyDown(KeyCode.Space) && controlesJugador.isinground)
         {
             rb.velocity = new Vector3(rb.velocity.x, 7f);
+            controlesJugador.isinground = false;
         }
     }
 }
