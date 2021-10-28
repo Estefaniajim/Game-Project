@@ -62,6 +62,9 @@ public class ControlesJugador : MonoBehaviour
             }
             
         }
+          if (collision.gameObject.tag == "Horizonte_gameover"){
+                rb.position = new Vector2(-8,4);
+        }  
 
          
         
@@ -120,6 +123,7 @@ public class ControlesJugador : MonoBehaviour
             }
     
         }
+       
     }
 
 

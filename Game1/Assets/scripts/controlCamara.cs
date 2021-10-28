@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class controlCamara : MonoBehaviour
 {
+    int speed = 5;
+    Vector2 movement;
    public Rigidbody2D rb;
    ControlesJugador controlesJugador;
 
@@ -11,8 +13,12 @@ public class controlCamara : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.A))
         {
+            
             rb.velocity = new Vector2(-5, rb.velocity.y);
-            transform.localScale = new Vector3(-0.0771515742f,0.0717689022f,0.0717689022f);
+            transform.localScale = new Vector3(0,0,0);
+            
+            //rb.MovePosition(-rb.position + movement*speed*Time.deltaTime);
+            
         }
         if(Input.GetKey(KeyCode.D))
         {

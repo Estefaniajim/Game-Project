@@ -7,6 +7,7 @@ TagManager:
   - coins
   - enemy
   - ground
+  - Horizonte_gameover
   layers:
   - Default
   - TransparentFX
