@@ -27,6 +27,8 @@ public class ControlesJugador : MonoBehaviour
     [SerializeField] private int score = 0;
     [SerializeField] private Text scoreText;
     [SerializeField] private float hurtForce = 10f;
+    [SerializeField] public AudioSource audioPickups;
+    [SerializeField] public AudioClip coinAudio;
 
     private void Start()
     {
@@ -52,10 +54,11 @@ public class ControlesJugador : MonoBehaviour
     {
         if(collision.tag == "coins")
         {
-            if(score <0){
+            if (score < 0) {
                 score = 0;
             }
-            else{
+            else {
+            audioPickups.PlayOneShot(coinAudio,0.3f);
             Destroy(collision.gameObject);
             score += 1;
             scoreText.text = score.ToString();

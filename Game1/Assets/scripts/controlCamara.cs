@@ -8,7 +8,7 @@ public class controlCamara : MonoBehaviour
     Vector2 movement;
    public Rigidbody2D rb;
    ControlesJugador controlesJugador;
-
+    public AudioSource audioPickup;
     public void Update()
     {
         if(Input.GetKey(KeyCode.A))
