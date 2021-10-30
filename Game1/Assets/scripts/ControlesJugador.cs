@@ -12,14 +12,12 @@ public class ControlesJugador : MonoBehaviour
 
     public bool isinground;
 
-    
-
-    
+    public Vida vidaManager;
 
     //FSM
-    private enum State {idle, running, jumping, falling, hurt}
+    private enum State { idle, running, jumping, falling, hurt }
     private State state = State.idle;
-    
+
     //Inspector variables
     [SerializeField] private LayerMask ground;
     [SerializeField] private float speed = 5f;
@@ -37,13 +35,14 @@ public class ControlesJugador : MonoBehaviour
         coll = GetComponent<Collider2D>();
         scoreText.text = score.ToString();
         isinground = false;
+
     }
 
     private void Update()
     {
-        if(state != State.hurt)
-        {   
-            
+        if (state != State.hurt)
+        {
+
             Movement();
         }
         AnimationState();
@@ -52,54 +51,61 @@ public class ControlesJugador : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "coins")
+        if (collision.tag == "coins")
         {
-            if (score < 0) {
+            if (score < 0)
+            {
                 score = 0;
             }
-            else {
-            audioPickups.PlayOneShot(coinAudio,0.3f);
-            Destroy(collision.gameObject);
-            score += 1;
-            scoreText.text = score.ToString();
+            else
+            {
+                audioPickups.PlayOneShot(coinAudio, 0.3f);
+                Destroy(collision.gameObject);
+                score += 1;
+                scoreText.text = score.ToString();
             }
-            
-        }
-          if (collision.gameObject.tag == "Horizonte_gameover"){
-                rb.position = new Vector2(-8,4);
-        }  
 
-         
-        
+        }
+        if (collision.gameObject.tag == "Horizonte_gameover")
+        {
+            rb.position = new Vector2(-8, 4);
+        }
+
+
+
     }
 
 
 
-    private void OnTriggerExit2D(Collider2D collision){
-         if(collision.gameObject.tag == "ground"){
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
             isinground = false;
-            Debug.Log(" no Tocando suelo");
+            //Debug.Log(" no Tocando suelo");
         }
 
     }
 
 
 
-    private void OnTriggerStay2D(Collider2D collision){
-         if(collision.gameObject.tag == "ground"){
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
             isinground = true;
-            Debug.Log("Tocando suelo");
+            //Debug.Log("Tocando suelo");
         }
 
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.tag == "enemy")
+        if (other.gameObject.tag == "enemy")
         {
             enemy dog = other.gameObject.GetComponent<enemy>();
 
-            if(state == State.falling)
+            if (state == State.falling)
             {
                 dog.JumpOn();
                 Jump();
@@ -108,7 +114,8 @@ public class ControlesJugador : MonoBehaviour
             else
             {
                 state = State.hurt;
-                if(other.gameObject.transform.position.x > transform.position.x)
+                vidaManager.bajarVida();
+                if (other.gameObject.transform.position.x > transform.position.x)
                 {
                     //enemy is on the right
                     rb.velocity = new Vector2(-hurtForce, rb.velocity.y);
@@ -124,72 +131,72 @@ public class ControlesJugador : MonoBehaviour
                     scoreText.text = score.ToString();
                 }
             }
-    
+
         }
-       
+
     }
 
 
 
-  private void Movement()
+    private void Movement()
     {
-        
+
         float hDirection = Input.GetAxis("Horizontal");
 
         //moving left
-        if(hDirection < 0)
+        if (hDirection < 0)
         {
-            rb.velocity = new Vector2(-speed,rb.velocity.y);
-            transform.localScale = new Vector3(-0.0771515742f,0.0717689022f,0.0717689022f);
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+            transform.localScale = new Vector3(-0.0771515742f, 0.0717689022f, 0.0717689022f);
         }
 
         //moving right
-        else if(hDirection > 0)
+        else if (hDirection > 0)
         {
-            rb.velocity = new Vector2(speed,rb.velocity.y);
-            transform.localScale = new Vector3(0.0771515742f,0.0717689022f,0.0717689022f);
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+            transform.localScale = new Vector3(0.0771515742f, 0.0717689022f, 0.0717689022f);
         }
         //jumping
-        
-    if(Input.GetButtonDown("Jump") && isinground)
-        {       
-            
+
+        if (Input.GetButtonDown("Jump") && isinground)
+        {
+
             Jump();
             isinground = false;
         }
     }
     private void Jump()
     {
-        
+
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         state = State.jumping;
-        
+
     }
 
     private void AnimationState()
     {
-        if(state == State.jumping)
+        if (state == State.jumping)
         {
-            if(rb.velocity.y < .1f)
+            if (rb.velocity.y < .1f)
             {
                 state = State.falling;
             }
         }
-        else if(state == State.falling)
+        else if (state == State.falling)
         {
-            if(coll.IsTouchingLayers(ground))
+            if (coll.IsTouchingLayers(ground))
             {
                 state = State.idle;
             }
         }
-        else if(state == State.hurt)
+        else if (state == State.hurt)
         {
-            if(Mathf.Abs(rb.velocity.x) < .1f)
+            if (Mathf.Abs(rb.velocity.x) < .1f)
             {
                 state = State.idle;
             }
         }
-        else if(Mathf.Abs(rb.velocity.x) > 2f)
+        else if (Mathf.Abs(rb.velocity.x) > 2f)
         {
             state = State.running;
         }
