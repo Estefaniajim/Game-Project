@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - ground
   - Horizonte_gameover
+  - Powerup
   layers:
   - Default
   - TransparentFX

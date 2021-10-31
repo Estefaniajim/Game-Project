@@ -11,6 +11,7 @@ public class ControlesJugador : MonoBehaviour
     private Collider2D coll;
 
     public bool isinground;
+    public bool invunerable;
 
     public Vida vidaManager;
 
@@ -35,6 +36,7 @@ public class ControlesJugador : MonoBehaviour
         coll = GetComponent<Collider2D>();
         scoreText.text = score.ToString();
         isinground = false;
+        invunerable = false;
 
     }
 
@@ -69,6 +71,13 @@ public class ControlesJugador : MonoBehaviour
         if (collision.gameObject.tag == "Horizonte_gameover")
         {
             rb.position = new Vector2(-8, 4);
+        }
+
+        if (collision.gameObject.tag == "Powerup")
+        {
+            Destroy(collision.gameObject);
+            invunerable = true;
+            //Debug.Log("powerup on");
         }
 
 
@@ -110,6 +119,12 @@ public class ControlesJugador : MonoBehaviour
                 dog.JumpOn();
                 Jump();
 
+            }
+            if(invunerable == true)
+            {
+                dog.JumpOn();
+                invunerable = false;
+                //Debug.Log("Powerup off");
             }
             else
             {
