@@ -71,6 +71,8 @@ public class ControlesJugador : MonoBehaviour
         if (collision.gameObject.tag == "Horizonte_gameover")
         {
             rb.position = new Vector2(-8, 4);
+            vidaManager.bajarVida();
+
         }
 
         if (collision.gameObject.tag == "Powerup")
@@ -120,7 +122,7 @@ public class ControlesJugador : MonoBehaviour
                 Jump();
 
             }
-            if(invunerable == true)
+            if (invunerable == true)
             {
                 dog.JumpOn();
                 invunerable = false;

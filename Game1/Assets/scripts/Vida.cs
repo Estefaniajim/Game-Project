@@ -12,6 +12,7 @@ public class Vida : MonoBehaviour
     public Canvas myCanvas;
     public int offset;
     public GameObject panelGameOver;
+    private Stack<Image> vidas = new Stack<Image>();
 
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class Vida : MonoBehaviour
         {
             Image newCorazon = Instantiate(Corazon, posCorazon.position, Quaternion.identity);
             newCorazon.transform.SetParent(myCanvas.transform);
+            vidas.Push(newCorazon);
             posCorazon.position = new Vector2(posCorazon.position.x + offset, posCorazon.position.y);
         }
     }
@@ -36,10 +38,9 @@ public class Vida : MonoBehaviour
 
     public void bajarVida()
     {
-        Destroy(myCanvas.transform.GetChild(cantCorazon + 2).gameObject);
-        cantCorazon -= 1;
+        Destroy(vidas.Pop().gameObject);
 
-        if (cantCorazon == 0)
+        if (vidas.Count == 0)
         {
             panelGameOver.SetActive(true);
             Time.timeScale = 0;
