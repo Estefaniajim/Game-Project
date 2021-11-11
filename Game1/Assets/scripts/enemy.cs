@@ -8,11 +8,14 @@ public class enemy : MonoBehaviour
     public bool MoveRight;
     private Animator anim;
     private Collider2D coll;
+    private float initial;
+    public int range;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
+        initial = transform.position.x;
     }
 
 
@@ -29,11 +32,14 @@ public class enemy : MonoBehaviour
             transform.Translate(-2 * Time.deltaTime * speed, 0, 0);
             transform.localScale = new Vector2(-0.0706262514f, 0.0706262514f);
         }
-        if (transform.position.x > 11)
+
+        float deltax = transform.position.x - initial;
+
+        if (deltax > range)
         {
             MoveRight = false;
         }
-        if (transform.position.x < 3.7)
+        if (deltax < -range)
         {
             MoveRight = true;
         }

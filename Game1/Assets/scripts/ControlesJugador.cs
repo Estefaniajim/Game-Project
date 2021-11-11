@@ -14,6 +14,7 @@ public class ControlesJugador : MonoBehaviour
     public bool invunerable;
 
     public Vida vidaManager;
+    public SpriteRenderer gato;
 
     //FSM
     private enum State { idle, running, jumping, falling, hurt }
@@ -79,10 +80,9 @@ public class ControlesJugador : MonoBehaviour
         {
             Destroy(collision.gameObject);
             invunerable = true;
+            gato.color = Color.blue;
             //Debug.Log("powerup on");
         }
-
-
 
     }
 
