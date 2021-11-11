@@ -26,10 +26,10 @@ public class ControlesJugador : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private int score = 0;
     [SerializeField] private Text scoreText;
-    [SerializeField] private float hurtForce = 10f;
+    [SerializeField] private float hurtForce = 7f;
     [SerializeField] public AudioSource audioPickups;
     [SerializeField] public AudioClip coinAudio;
-
+    private IEnumerator invencible;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -80,13 +80,20 @@ public class ControlesJugador : MonoBehaviour
         {
             Destroy(collision.gameObject);
             invunerable = true;
-            gato.color = Color.blue;
+            invencible = serInvencible();
+            StartCoroutine(invencible);
             //Debug.Log("powerup on");
         }
 
     }
 
-
+    IEnumerator serInvencible()
+    {
+        gato.color = Color.blue;
+        yield return new WaitForSeconds(10f);
+        invunerable = false;
+        gato.color = Color.white;
+    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -118,14 +125,14 @@ public class ControlesJugador : MonoBehaviour
 
             if (state == State.falling)
             {
-                dog.JumpOn();
+                dog.SetDead();
                 Jump();
 
             }
-            if (invunerable == true)
+            else if (invunerable == true)
             {
-                dog.JumpOn();
-                invunerable = false;
+                dog.SetDead();
+                //invunerable = false;
                 //Debug.Log("Powerup off");
             }
             else

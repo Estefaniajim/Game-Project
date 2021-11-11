@@ -65,7 +65,7 @@ public class enemy : MonoBehaviour
         Destroy(this.gameObject);
 
     }
-    public void JumpOn()
+    public void SetDead()
     {
         anim.SetTrigger("Dead");
     }
