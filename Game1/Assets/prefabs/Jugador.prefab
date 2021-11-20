@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 7886939558913832729}
-  audioPickup: {fileID: 0}
+  audioSource: {fileID: 0}
+  song: {fileID: 8300000, guid: 2da9f09d6751285478322e9778e8bd43, type: 3}
 --- !u!82 &4637033810181574112
 AudioSource:
   m_ObjectHideFlags: 0
@@ -343,6 +344,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isinground: 0
+  invunerable: 0
+  vidaManager: {fileID: 0}
+  gato: {fileID: 0}
   ground:
     serializedVersion: 2
     m_Bits: 256
@@ -353,6 +357,8 @@ MonoBehaviour:
   hurtForce: 10
   audioPickups: {fileID: 190066454626720121}
   coinAudio: {fileID: 8300000, guid: 22e9487d872ae404abb4e67874fe6932, type: 3}
+  powerup: {fileID: 8300000, guid: 282fd2b55da6eec48a894b653e468752, type: 3}
+  camara: {fileID: 7886939557351798495}
 --- !u!95 &7886939558913832731
 Animator:
   serializedVersion: 3

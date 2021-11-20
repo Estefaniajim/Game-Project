@@ -29,6 +29,8 @@ public class ControlesJugador : MonoBehaviour
     [SerializeField] private float hurtForce = 7f;
     [SerializeField] public AudioSource audioPickups;
     [SerializeField] public AudioClip coinAudio;
+    [SerializeField] public AudioClip powerup;
+    [SerializeField] public controlCamara camara;
     private IEnumerator invencible;
     private void Start()
     {
@@ -78,6 +80,7 @@ public class ControlesJugador : MonoBehaviour
 
         if (collision.gameObject.tag == "Powerup")
         {
+            audioPickups.PlayOneShot(powerup, 0.3f);
             Destroy(collision.gameObject);
             invunerable = true;
             invencible = serInvencible();
@@ -90,7 +93,9 @@ public class ControlesJugador : MonoBehaviour
     IEnumerator serInvencible()
     {
         gato.color = Color.blue;
+        camara.powerup(1);
         yield return new WaitForSeconds(10f);
+        camara.powerup(-1);
         invunerable = false;
         gato.color = Color.white;
     }

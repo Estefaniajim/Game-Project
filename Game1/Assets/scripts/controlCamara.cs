@@ -8,7 +8,16 @@ public class controlCamara : MonoBehaviour
     Vector2 movement;
    public Rigidbody2D rb;
    ControlesJugador controlesJugador;
-    public AudioSource audioPickup;
+    public AudioSource audioSource;
+    public AudioClip song;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = song;
+        audioSource.loop = true;
+    }
+
     public void Update()
     {
         if(Input.GetKey(KeyCode.A))
@@ -30,5 +39,10 @@ public class controlCamara : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 7f);
             controlesJugador.isinground = false;
         }
+    }
+
+    public void powerup(int c)
+    {
+        audioSource.pitch = audioSource.pitch + c;
     }
 }

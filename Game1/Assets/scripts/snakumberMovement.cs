@@ -18,9 +18,9 @@ public class snakumberMovement : MonoBehaviour
     {
         if (up)
         {
-            if(moved < 100)
+            if(moved < 500)
             {
-                transform.position += new Vector3(0, 0.02f, 0);
+                transform.position += new Vector3(0, 0.01f, 0);
                 moved++;
             }
             else
@@ -32,7 +32,7 @@ public class snakumberMovement : MonoBehaviour
         {
             if (moved > 0)
             {
-                transform.position -= new Vector3(0, 0.02f, 0);
+                transform.position -= new Vector3(0, 0.01f, 0);
                 moved--;
             }
             else
