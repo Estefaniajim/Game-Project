@@ -162,6 +162,30 @@ public class ControlesJugador : MonoBehaviour
             }
 
         }
+        else if(other.gameObject.tag == "cucumber")
+        {
+            if(invunerable == false)
+            {
+                state = State.hurt;
+                vidaManager.bajarVida();
+                if (other.gameObject.transform.position.x > transform.position.x)
+                {
+                    //enemy is on the right
+                    rb.velocity = new Vector2(-hurtForce, rb.velocity.y);
+                    score -= 1;
+                    scoreText.text = score.ToString();
+
+                }
+                else
+                {
+                    //enemy is to the left
+                    rb.velocity = new Vector2(hurtForce, rb.velocity.y);
+                    score -= 1;
+                    scoreText.text = score.ToString();
+                }
+            }
+            
+        }
 
     }
 

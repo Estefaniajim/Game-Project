@@ -9,6 +9,7 @@ TagManager:
   - ground
   - Horizonte_gameover
   - Powerup
+  - cucumber
   layers:
   - Default
   - TransparentFX

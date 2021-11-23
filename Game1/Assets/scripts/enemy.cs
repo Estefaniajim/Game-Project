@@ -47,7 +47,7 @@ public class enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D trig)
     {
-        if (trig.gameObject.CompareTag("turn"))
+       /* if (trig.gameObject.CompareTag("turn"))
         {
 
             if (MoveRight)
@@ -59,6 +59,7 @@ public class enemy : MonoBehaviour
                 MoveRight = true;
             }
         }
+       */
     }
     public void Dead()
     {
